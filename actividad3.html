@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"
+    />
+  </head>
+  <body>
+    <!-- Formulario realizar cotización -->
+    <!-- Compra una PC / portátil -->
+    <!-- Existen campos obligatorios / no obligatorios -->
+    <!-- Generar un cuadro de diálogo con la confirmación -->
+    <!-- Aplicar estilos CSS -->
+    <h1 style="text-align: center">Cotización de PC y portátil</h1>
+
+    <section class="section">
+      <div class="container">
+        <div class="box">
+          <section>
+            <form id="formularioCotizacion">
+              <div class="field">
+                <label for="nombre">Nombre</label>
+                <input type="text" class="input" id="nombre" required />
+              </div>
+
+              <div class="field">
+                <label for="apellidos">Apellidos</label>
+                <input type="text" class="input" id="apellidos" required />
+              </div>
+
+              <div class="field">
+                <label for="fechanac">Fecha de Nacimiento</label>
+                <input type="date" class="input" id="fechanac" required />
+              </div>
+
+              <div class="field">
+                <label for="email">Correo Electrónico</label>
+                <input type="email" class="input" id="email" required />
+              </div>
+
+              <div class="field">
+                <label for="producto">Marcas de PC y Portátil</label>
+                <select name="producto" id="producto" required>
+                  <option value="">Seleccione una marca</option>
+                  <option value="1">Lenovo</option>
+                  <option value="2">HP</option>
+                  <option value="3">ASUS</option>
+                  <option value="4">Dell</option>
+                  <option value="5">Apple</option>
+                  <option value="6">Acer</option>
+                  <option value="7">MSI</option>
+                  <option value="8">Samsung</option>
+                  <option value="9">Microsoft</option>
+                  <option value="10">Razer</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="pedido">Cantidad de Pedido</label>
+                <input
+                  type="number"
+                  class="input"
+                  id="pedido"
+                  min="1"
+                  step="1"
+                  required
+                />
+              </div>
+
+              <div class="field">
+                <label for="mensaje">Mensaje (opcional)</label>
+                <input type="text" class="input" id="mensaje" />
+              </div>
+
+              <div>
+                <button class="button" type="submit">Enviar</button>
+                <button class="button" type="reset">Reiniciar</button>
+              </div>
+            </form>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      const formulario = document.getElementById("formularioCotizacion")
+
+      formulario.addEventListener("submit", function(event){
+        event.preventDefault();
+
+        const confirmar = confirm(
+          "¿Deseas enviar la solicitud de cotización?"
+        );
+
+        if (confirmar) {
+          alert("¡Solicitud de cotización confirmada!")
+        }
+      })
+    </script>
+  </body>
+</html>

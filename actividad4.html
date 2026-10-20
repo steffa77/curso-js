@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cuestionario de programación</title>
+  <!-- Construir un CUESTIONARIO -->
+  <!-- Por cada Pregunta -->
+  <!-- 3 alternativas -->
+  <!-- Utilizar los botones de desplazamiento para la navegación -->  
+  <!-- Los datos que se irán mostrando deben estar en un OBJETO --> 
+
+<style>
+  body{
+    font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #f2f5f9;
+    }
+
+    .cuestionario {
+      background-color: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px #cccccc;
+    }
+
+    .alternativa {
+      display: block;
+      margin: 12px 0;
+    }
+
+    .botones {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 25px;
+    }
+
+    button {
+      padding: 10px 18px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      background-color: #2563eb;
+      color: white;
+    }
+
+    button:disabled {
+      background-color: #999999;
+      cursor: not-allowed;
+  }
+</style>
+</head>
+<body>
+
+  <div class="cuestionario">
+    <h1 id="titulo"></h1>
+    <p id="instructor"></p>
+    <p id="nivel"></p>
+
+    <hr>
+
+    <h2 id="pregunta"></h2>
+    <div id="alternativas"></div>
+    <p id="progreso"></p>
+
+    <div class="botones">
+      <button id="anterior" type="button">Anterior</button>
+      <button id="siguiente" type="button">Siguiente</button>
+    </div>
+  </div>
+
+  <script>
+
+    const cuestionario = {
+      titulo: "Evualción de programación",
+      instructor: "Cristiano Ronaldo",
+      nivel: "Fácil",
+
+      contenido: [
+        {
+          pregunta: "¿Qué es una base de datos?",
+          alternativas: [
+            "A. Un conjunto organizado de datos",
+            "B. Un lengujae de programación",
+            "C. Un sistema operativo"
+          ] 
+        },
+        {
+          pregunta: "¿Qué significa HTML?",
+          alternativas: [
+            "A. HyperText Markup Language",
+            "B. HighText Machine Language",
+            "C. Home Tool Markup Language"
+          ]
+        },
+        {
+          pregunta: "¿Qué es un sistema operativo?",
+          alternativas: [
+            "A. Un tipo de teclado",
+            "B. Un programa que administra los recursos del equipo",
+            "C. Un lenguaje de marcado"
+          ]
+        }
+      ]
+    };
+
+    let indiceActual = 0;
+
+    document.getElementById("titulo").textContent = 
+    cuestionario.titulo;
+
+    document.getElementById("instructor").textContent = 
+    "Instructor: " + cuestionario.instructor;
+
+    document.getElementById("nivel").textContent =
+    "Nivel: " + cuestionario.nivel;
+
+    function mostrarPregunta() {
+      const preguntaActual =
+      cuestionario.contenido[indiceActual];
+
+      document.getElementById("pregunta").textContent =
+      preguntaActual.pregunta;
+
+      const contenedor = 
+      document.getElementById("alternativas");
+
+      contenedor.innerHTML = "";
+
+      preguntaActual.alternativas.forEach(function(alternativa){
+        const etiqueta = document.createElement("label");
+        etiqueta.className = "alternativa";
+
+        const opcion = document.createElement("input");
+        opcion.type = "radio";
+        opcion.name = "respuesta";
+        opcion.value = alternativa;
+
+        etiqueta.appendChild(opcion);
+        etiqueta.appendChild(
+          document.createTextNode(" " + alternativa)
+        );
+
+        contenedor.appendChild(etiqueta);
+      });
+
+      document.getElementById("progreso").textContent = 
+      "Pregunta " + (indiceActual + 1) +
+      " de " + cuestionario.contenido.length;
+
+      document.getElementById("anterior").disabled = 
+      indiceActual === 0;
+
+      document.getElementById("siguiente").disabled = 
+      indiceActual === cuestionario.contenido.length - 1;
+    }
+
+    document.getElementById("anterior").addEventListener(
+      "click",
+      function() {
+        if (indiceActual > 0) {
+          indiceActual--;
+          mostrarPregunta();
+        }
+      }
+    );
+
+    document.getElementById("siguiente").addEventListener(
+      "click",
+      function() {
+        if (indiceActual < cuestionario.contenido.length - 1) {
+          indiceActual++;
+          mostrarPregunta();
+        }
+      }
+    );
+
+    mostrarPregunta();
+  </script>
+
+</body>
+</html>
