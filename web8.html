@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!--
+  Utilizar API Dragon ball
+  Consulta   : Obtener la infromación de un personaje 
+  Respuesta  : JSON conteniendo datos cadena, numéricos, objetos y arreglos
+  Renderizar : Se debe escribir el ID en una CAJA DE TEXTO, al pulsar el botón Buscar
+               Obtendremos el nombre, la descripcion, la fotografía del personaje y el
+               planeta del personaje en (h1, p, img, strong). Además, cada una de sus
+               transformaciones, aparecera como el elemento de seleccionable de un  <select>
+               utilizando ID y NAME.
+  -->
+    <form action="" id="formBusqueda">
+      <input type="search" id="id" />
+      <button type="submit">Buscar</button>
+    </form>
+
+    <h1 id="nombre"></h1>
+    <p id="descripcion"></p>
+    <img src="" alt="" id="imagen" />
+    <strong></strong>
+    <select name="transformaciones" id="transformaciones">
+      <option value="">Seleccione</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+    </select>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        async function obtenerDatosPersonajes(id) {
+          const URL = `https://dragonball-api.com/api/characters/${id}`;
+
+          const respuesta = await fetch(URL);
+
+          if (!respuesta.ok) {
+            console.log("Error en la petición");
+            return;
+          }
+
+          const datos = await respuesta.json();
+          console.log(datos);
+
+          document.getElementById("nombre").innerText = datos.name;
+          document.getElementById("descripcion").innerText = datos.description;
+          document.getElementById("imagen").setAttribute("src", datos.image);
+          document.getElementById("imagen").setAttribute("alt", `Transformaciones ${datos.name}`);
+        }
+        document
+          .getElementById("transformaciones")
+          .addEventListener("change", () => {
+            const idtransformacion =
+              document.getElementById("transformaciones").value;
+            obtenerDatosPlaneta(idtransformacion);
+          });
+      });
+    </script>
+  </body>
+</html>
